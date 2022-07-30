@@ -29,7 +29,7 @@ const startApp = async () => {
       message: 'Type your watermark text:',
     }]);
     options.watermarkText = text.value;
-    addTextWatermarkToImage('./img/' + options.inputImage, './test-with-watermark.jpg', options.watermarkText);
+    addTextWatermarkToImage('./img/' + options.inputImage, './img/' + prepareOutputFilename(options.inputImage), options.watermarkText);
   }
   else {
     const image = await inquirer.prompt([{
@@ -39,12 +39,10 @@ const startApp = async () => {
       default: 'logo.png',
     }]);
     options.watermarkImage = image.filename;
-    addImageWatermarkToImage('./img/' + options.inputImage, './test-with-watermark.jpg', './img/' + options.watermarkImage);
-  }
+    addImageWatermarkToImage('./img/' + options.inputImage, './img/' + prepareOutputFilename(options.inputImage), './img/' + options.watermarkImage);
+    }
 
 }
-
-startApp();
 
 const Jimp = require('jimp');
 const inquirer = require('inquirer');
@@ -62,8 +60,6 @@ const addTextWatermarkToImage = async function(inputFile, outputFile, text) {
   await image.quality(100).writeAsync(outputFile);
 };
 
-// addTextWatermarkToImage('./test.jpg', './test-with-watermark.jpg', 'Test watermark');
-
 const addImageWatermarkToImage = async function(inputFile, outputFile, watermarkFile) {
   const image = await Jimp.read(inputFile);
   const watermark = await Jimp.read(watermarkFile);
@@ -77,4 +73,11 @@ const addImageWatermarkToImage = async function(inputFile, outputFile, watermark
   await image.quality(100).writeAsync(outputFile);
 };
 
-// addImageWatermarkToImage('./test.jpg', './test-with-watermark2.jpg', './logo.png');
+const prepareOutputFilename  = (inputFilename) => {
+  const [filename, extension] = inputFilename.split('.');
+  return `${filename}-with-watermark.${extension}`;
+}
+
+startApp();
+
+
