@@ -14,9 +14,9 @@ exports.addTextWatermarkToImage = async function(inputFile, outputFile, text) {
     image.print(font, 0, 0, textData, image.getWidth(), image.getHeight());
     await image.quality(100).writeAsync(outputFile);
     console.log("Watermark added successfully!");
-    // startApp();
+    return true
   }
   catch {
-    console.log('Something went wrong... Try again2');
+    console.log('Something went wrong... Try again..');
   }
 };

@@ -19,7 +19,10 @@ const startApp = async () => {
       }]);
       options.watermarkText = text.value;
       if(existsSync(`./img/${operation.inputImage}`)) {
-        addTextWatermarkToImage('./img/' + operation.inputImage, './img/' + prepareOutputFilename(operation.inputImage), options.watermarkText);
+        const addTextWatermark = await addTextWatermarkToImage('./img/' + operation.inputImage, './img/' + prepareOutputFilename(operation.inputImage), options.watermarkText);
+        if (addTextWatermark) {
+          startApp();
+        }
       } else {
         console.log('Something went wrong... Try again')
       }
@@ -33,10 +36,14 @@ const startApp = async () => {
       }]);
       options.watermarkImage = image.filename;
       
-      if(existsSync(`./img/${options.inputImage}`) && existsSync(`./img/${options.watermarkImage}`)) {
-        addImageWatermarkToImage('./img/' + options.inputImage, './img/' + prepareOutputFilename(options.inputImage), './img/' + options.watermarkImage);
+      if(existsSync(`./img/${operation.inputImage}`) && existsSync(`./img/${options.watermarkImage}`)) {
+        const addImageWatermark = await addImageWatermarkToImage('./img/' + operation.inputImage, './img/' + prepareOutputFilename(operation.inputImage), './img/' + options.watermarkImage);
+        if (addImageWatermark) {
+          startApp();
+        }
+      } else {
+        console.log('Something went wrong... Try again')
       } 
-      else console.log('Something went wrong... Try again')
     }
   }
 
