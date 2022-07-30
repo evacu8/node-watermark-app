@@ -1,0 +1,11 @@
+{
+  "name": "node-watermark-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "git@github.com:evacu8/node-watermark-app.git",
+  "author": "Krzysztof Potocki <kpotocki89@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jimp": "0.6.4"
+  }
+}
