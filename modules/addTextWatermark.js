@@ -1,6 +1,5 @@
 const Jimp = require('jimp');
 
-
 exports.addTextWatermarkToImage = async function(inputFile, outputFile, text) {
   try {
     const image = await Jimp.read(inputFile);

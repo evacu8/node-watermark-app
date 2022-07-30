@@ -1,14 +1,10 @@
 const inquirer = require('inquirer');
 const { existsSync } = require('node:fs');
-const { addTextWatermarkToImage } = require('./utils/addTextWatermark');
-const { addImageWatermarkToImage } = require('./utils/addImageWatermark');
+const { addTextWatermarkToImage } = require('./modules/addTextWatermark');
+const { addImageWatermarkToImage } = require('./modules/addImageWatermark');
+const { prepareOutputFilename } = require('./modules/prepareOutputFilename');
 
 const startApp = async () => {
-
-  const prepareOutputFilename = (inputFilename) => {
-    const [filename, extension] = inputFilename.split('.');
-    return `${filename}-with-watermark.${extension}`;
-  }
 
   const addWatermark = async(options, operation) => {
     if(options.watermarkType === 'Text watermark') {
