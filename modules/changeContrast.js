@@ -1,19 +1,19 @@
 const Jimp = require('jimp');
 const inquirer = require('inquirer');
 
-exports.changeBrightness = async function(inputFile, tempFile) {
-  const brightness = await inquirer.prompt([{
+exports.changeContrast = async function(inputFile, tempFile) {
+  const contrast = await inquirer.prompt([{
     name: 'value',
     type: 'input',
-    message: 'Type brightness value from -1 to +1',
+    message: 'Type contrast value from -1 to +1',
   }]);
-  if(brightness.value >= -1 && brightness.value <=1){
+  if(contrast.value >= -1 && contrast.value <=1){
     try {
       const image = await Jimp.read(inputFile);
-      const br = brightness.value;
-      image.brightness(+br);
+      const cr = contrast.value;
+      image.contrast(+cr);
       image.quality(100).write(tempFile);
-      console.log("Brightness changed successfully!");
+      console.log("Contrast changed successfully!");
     }
     catch {
       console.log('Something went wrong... Try again');
